@@ -1,0 +1,53 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john@example.com"
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "email": "jane@example.com"
+    },
+    {
+      "id": 3,
+      "name": "Michael John",
+      "email": "john@example.com"
+    }
+  ],
+  "todos": [
+    {
+      "id": 1,
+      "userId": 1,
+      "title": "Complete project",
+      "completed": false
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "title": "Review code",
+      "completed": true
+    },
+    {
+      "id": 3,
+      "userId": 2,
+      "title": "Write documentation",
+      "completed": false
+    }
+  ],
+  "notes": [
+    {
+      "id": 1,
+      "userId": 1,
+      "title": "My first post",
+      "content": "This is the content of my first post."
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "title": "Hello World",
+      "content": "Welcome to my blog!"
+    }
+  ]
+}

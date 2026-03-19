@@ -58,6 +58,8 @@ router.get('/:id', userController.getUserById);
  *                 type: string
  *               email:
  *                 type: string
+ *               password: 
+ *                type: string
  *     responses:
  *       201:
  *         description: User created successfully

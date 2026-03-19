@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const bcrypt = require("bcryptjs");
 const { sendResponse } = require('../utils/response');
 
 const dbPath = path.join(__dirname, '../database.json');
@@ -31,13 +32,17 @@ exports.getUserById = (req, res, next) => {
   }
 };
 
-exports.createUser = (req, res, next) => {
+exports.createUser = async (req, res, next) => {
   try {
     const db = readDB();
-    const newUser = { id: db.users.length + 1, ...req.body };
+    const { email, password, name } = req.body;
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = { id: db.users.length + 1, password: hashedPassword, email, name };
     db.users.push(newUser);
     writeDB(db);
-    sendResponse(res, 201, 'User created successfully', newUser);
+    sendResponse(res, 201, 'User created successfully', {id:newUser.id,email: newUser.email, name});
   } catch (err) {
     next(err);
   }

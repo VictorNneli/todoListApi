@@ -14,6 +14,24 @@
       "id": 3,
       "name": "Michael John",
       "email": "john@example.com"
+    },
+    {
+      "id": 4,
+      "password": "$2b$10$2.TuRv3eiBl59S/tPV63IuGfWg0HcL73fGImx4NJHbKpZBszr8t5e",
+      "email": "string",
+      "name": "string"
+    },
+    {
+      "id": 5,
+      "password": "$2b$10$1xWIs0ycGRPDcLVmQl.lpOhsXP/.Tt9BPpFbA6GB9IWgHHChAPbJi",
+      "email": "dera@gmail.com",
+      "name": "Dera"
+    },
+    {
+      "id": 6,
+      "password": "$2b$10$5uqrl9vEkIDE4FV4ttR4Ae6AczlwXy5C0/1YDUIcMvxYM/BpJ4RQa",
+      "email": "sam@gmail.com",
+      "name": "Sam"
     }
   ],
   "todos": [

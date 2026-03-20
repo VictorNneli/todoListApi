@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const todoController = require('../controllers/todoController');
+const validate = require('../middleware/validate');
+const { createTodoSchema, updateTodoSchema, idParamSchema } = require('../validators/todoValidator');
 
 /**
  * @swagger
@@ -39,7 +41,7 @@ router.get('/', todoController.getAllTodos);
  *       404:
  *         description: Todo not found
  */
-router.get('/:id', todoController.getTodoById);
+router.get('/:id', validate(idParamSchema, 'params'), todoController.getTodoById);
 
 /**
  * @swagger
@@ -64,7 +66,7 @@ router.get('/:id', todoController.getTodoById);
  *       201:
  *         description: Todo created successfully
  */
-router.post('/', todoController.createTodo);
+router.post('/', validate(createTodoSchema), todoController.createTodo);
 
 /**
  * @swagger
@@ -90,7 +92,7 @@ router.post('/', todoController.createTodo);
  *       404:
  *         description: Todo not found
  */
-router.put('/:id', todoController.updateTodo);
+router.put('/:id', validate(idParamSchema, 'params'), validate(updateTodoSchema), todoController.updateTodo);
 
 /**
  * @swagger
@@ -110,6 +112,6 @@ router.put('/:id', todoController.updateTodo);
  *       404:
  *         description: Todo not found
  */
-router.delete('/:id', todoController.deleteTodo);
+router.delete('/:id', validate(idParamSchema, 'params'), todoController.deleteTodo);
 
 module.exports = router;

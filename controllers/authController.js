@@ -1,15 +1,15 @@
+const fs = require('fs');
+const path = require('path');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+const dbPath = path.join(__dirname, '../database.json');
+const readDB = () => JSON.parse(fs.readFileSync(dbPath, 'utf8'));
 const writeDB = (data) => fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
 
 exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-
-    if (!email || !password) {
-      return res.status(400).json({
-        success: false,
-        message: 'Email and password are required'
-      });
-    }
 
     const db = readDB();
     const user = db.users.find(u => u.email === email);
@@ -61,13 +61,6 @@ exports.login = async (req, res, next) => {
 exports.refreshToken = (req, res) => {
   try {
     const { refreshToken } = req.body;
-
-    if (!refreshToken) {
-      return res.status(401).json({
-        success: false,
-        message: 'No refresh token provided'
-      });
-    }
 
     const db = readDB();
 

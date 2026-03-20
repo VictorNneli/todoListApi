@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const noteController = require('../controllers/noteController');
+const validate = require('../middleware/validate');
+const { createNoteSchema, updateNoteSchema, idParamSchema } = require('../validators/noteValidator');
 
 /** 
  * @swagger
@@ -39,7 +41,7 @@ router.get('/', noteController.getAllNotes);
  *       404:
  *         description: Note not found
  */
-router.get('/:id', noteController.getNoteById);
+router.get('/:id', validate(idParamSchema, 'params'), noteController.getNoteById);
 
 /**
  * @swagger
@@ -64,7 +66,7 @@ router.get('/:id', noteController.getNoteById);
  *       201:
  *         description: Note created successfully
  */
-router.post('/', noteController.createNote);
+router.post('/', validate(createNoteSchema), noteController.createNote);
 
 /**
  * @swagger
@@ -90,7 +92,7 @@ router.post('/', noteController.createNote);
  *       404:
  *         description: Note not found
  */
-router.put('/:id', noteController.updateNote);
+router.put('/:id', validate(idParamSchema, 'params'), validate(updateNoteSchema), noteController.updateNote);
 
 /**
  * @swagger
@@ -110,6 +112,6 @@ router.put('/:id', noteController.updateNote);
  *       404:
  *         description: Note not found
  */
-router.delete('/:id', noteController.deleteNote);
+router.delete('/:id', validate(idParamSchema, 'params'), noteController.deleteNote);
 
 module.exports = router;

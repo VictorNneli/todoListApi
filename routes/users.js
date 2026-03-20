@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
+const validate = require('../middleware/validate');
+const { createUserSchema, updateUserSchema, idParamSchema } = require('../validators/userValidator');
 
 /**
  * @swagger
@@ -39,7 +41,7 @@ router.get('/', userController.getAllUsers);
  *       404:
  *         description: User not found
  */
-router.get('/:id', userController.getUserById);
+router.get('/:id', validate(idParamSchema, 'params'), userController.getUserById);
 
 /**
  * @swagger
@@ -64,7 +66,7 @@ router.get('/:id', userController.getUserById);
  *       201:
  *         description: User created successfully
  */
-router.post('/', userController.createUser);
+router.post('/', validate(createUserSchema), userController.createUser);
 
 /**
  * @swagger
@@ -90,7 +92,7 @@ router.post('/', userController.createUser);
  *       404:
  *         description: User not found
  */
-router.put('/:id', userController.updateUser);
+router.put('/:id', validate(idParamSchema, 'params'), validate(updateUserSchema), userController.updateUser);
 
 /**
  * @swagger
@@ -110,6 +112,6 @@ router.put('/:id', userController.updateUser);
  *       404:
  *         description: User not found
  */
-router.delete('/:id', userController.deleteUser);
+router.delete('/:id', validate(idParamSchema, 'params'), userController.deleteUser);
 
 module.exports = router;

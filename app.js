@@ -4,6 +4,7 @@ const swaggerSpec = require('./swagger');
 const app = express();
 const PORT = 3000;
 const globalErrorHandler = require('./middleware/errorHandler');
+const { authenticate } = require('./middleware/authMiddleware');
 require("dotenv").config();
 
 app.use(express.json());
@@ -18,10 +19,10 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-app.use('/users', userRoutes);
-app.use('/todos', todoRoutes);
-app.use('/notes', noteRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/users', authenticate, userRoutes);
+app.use('/todos', authenticate, todoRoutes);
+app.use('/notes', authenticate, noteRoutes);
 
 // Global error handler
 app.use(globalErrorHandler.errorHandler);

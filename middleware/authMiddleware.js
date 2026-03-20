@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-exports.protect = (req, res, next) => {
+exports.authenticate = (req, res, next) => {
   try {
     let token;
 
